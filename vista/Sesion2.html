@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BKD´s</title>
+</head>
+<body>
+    <form action="../vista/index.html" method="get">
+        <input type="submit" name="enviar" value="Cerrar sesiòn">
+    </form>
+    
+    <h1>Bienvenido a Bike Door´s ® <?php echo $U;?> Administrador </h1>
+
+    <h1>Planear viaje</h1>
+    <form action="../modelo/busqueda.php" method="get">
+        <input type="submit" name="enviar" value="Buscar bicicletas disponibles">
+    </form>
+    
+</br>
+</br>
+
+    <form action="../modelo/Rutas_disponibles.php" method="get">
+        <input type="submit" name="enviar" value="Buscar Rutas disponibles">
+    </form>
+
+</body>
+</html>
