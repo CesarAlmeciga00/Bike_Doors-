@@ -73,6 +73,9 @@
     <label>Contraseña: <input type='password' name='Pass' minlength='6'> </label><br><br>
     <input type='submit' name='enviar' value='Iniciar sesión'>
     </form>
+
+    <h5><a href='" . $Ref1 . "'>Olvidaste tu contraseña?</a><h5>
+
     <form action='" . $Ref1 ."' method='get'>
 
         
