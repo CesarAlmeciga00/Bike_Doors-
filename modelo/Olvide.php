@@ -11,9 +11,10 @@
 
     <?php
     $Usuario = $_GET["User"];
-    // $Email = $_GET["Email"];
+    $Email = $_GET["Email"];
     
-    if ($Usuario != NULL) {
+    
+    if ($Usuario != NULL && $Email != NULL) {
         require "connection_bdd.php";
 
         if (mysqli_connect_errno()) {
@@ -24,18 +25,22 @@
         mysqli_select_db($connection, $db_nombre) or die("No se encuentra la base de datos");
         mysqli_set_charset($connection, "utf8");
 
-        $consulta = "SELECT Usuario FROM usuarios WHERE Usuario = '$Usuario'";
+        $consulta = "SELECT Usuario, Email, Contraseña FROM usuarios WHERE Usuario = '$Usuario'";
         $resultado = mysqli_query($connection, $consulta);
 
         $row = mysqli_fetch_array($resultado, MYSQLI_ASSOC);
         $U = $row['Usuario'];
-        if($Usuario == $U)
+        $E = $row['Email'];
+        $P = $row['Contraseña'];
+        if($Usuario == $U && $Email == $E)
         {
             $extra = "Olvide2.php";
-            header("Location: $extra");
+            require $extra;
             
             
         }else{
+            if($Usuario != $U)
+            {
             $mi_pag = $_SERVER["PHP_SELF"];
             $Ref = '../vista/Index.html';
             $Ref1 = "../modelo/Registrarse.php";
@@ -55,7 +60,8 @@
         <h4>Recuperación de contraseña<h4>");
             echo ("<form action='" . $mi_pag . "' method='get'>
         
-        <label>Nombre de Usuario: <input type='text' name='User' minlength='5' maxlength='25'></label> Nombre de usuario no encontrado<br><br>
+        <label>Nombre de Usuario: <input type='text' name='User' minlength='5' maxlength='25'> Usuario no encontrado</label><br><br>
+        <label>Email: <input type='text' name='Email' minlength='5' maxlength='25'></label> <br><br>
         <input type='submit' name='enviar' value='Recuperar contraseña'>
         </form>
     
@@ -68,6 +74,45 @@
             <input type='submit' name='Registro' value='Registrate ahora'>
         </form>
         ");  
+            }
+
+            if($Email != $E)
+            {
+            $mi_pag = $_SERVER["PHP_SELF"];
+            $Ref = '../vista/Index.html';
+            $Ref1 = "../modelo/Registrarse.php";
+    
+    
+            echo ("<form action='" . $Ref . "' method='get'>
+            <input type='submit' name='enviar' value='Inicio'>
+        </form>");
+    
+            echo ("<h1>Bike Doors ®</h1>
+    
+        <h2>Comodidad y rapidez al alcance de tus manos</h2>
+    
+        <br>
+        <br>
+    
+        <h4>Recuperación de contraseña<h4>");
+            echo ("<form action='" . $mi_pag . "' method='get'>
+        
+        <label>Nombre de Usuario: <input type='text' name='User' minlength='5' maxlength='25'></label><br><br>
+        <label>Email: <input type='text' name='Email' minlength='5' maxlength='50'></label> Email no coincide<br><br>
+        <input type='submit' name='enviar' value='Recuperar contraseña'>
+        </form>
+    
+        <form action='" . $Ref1 . "' method='get'>
+    
+            
+        <br>
+            <h5>No tienes Usuario? Registrate ahora<h5>
+            
+            <input type='submit' name='Registro' value='Registrate ahora'>
+        </form>
+        ");  
+            }
+
         }
     }else{
 
@@ -91,6 +136,7 @@
         echo ("<form action='" . $mi_pag . "' method='get'>
     
     <label>Nombre de Usuario: <input type='text' name='User' minlength='5' maxlength='25'></label><br><br>
+    <label>Email: <input type='text' name='Email' minlength='5' maxlength='50'></label> <br><br>
     <input type='submit' name='enviar' value='Recuperar contraseña'>
     </form>
 
